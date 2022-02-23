@@ -26,7 +26,7 @@ class MemoryBoardAdapter(
 
     companion object {
         private const val MARGIN_SIZE = 10
-        private val TAG = "MemoryBoardAdapter"
+        private const val TAG = "MemoryBoardAdapter"
     }
 
     interface CardClickListener{
@@ -37,7 +37,6 @@ class MemoryBoardAdapter(
         val cardWidth: Int = parent.width / boardSize.getWidth() - (2 * MARGIN_SIZE)
         val cardHeight: Int = parent.height / boardSize.getHeight() - (2 * MARGIN_SIZE)
         val cardSideLength = min(cardWidth, cardHeight)
-
         val view = LayoutInflater.from(context).inflate(R.layout.memory_card, parent, false)
         val layoutParams = view.findViewById<CardView>(R.id.cardView).layoutParams as ViewGroup.MarginLayoutParams
         layoutParams.width = cardSideLength
