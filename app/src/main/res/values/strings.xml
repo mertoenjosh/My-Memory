@@ -4,4 +4,6 @@
     <string name="moves_default">Moves: 0</string>
     <string name="pairs_default">Pairs: 0 / 4</string>
     <string name="game_name_example">Game name (example: \'panda_fun\')</string>
+    <string name="error_saving_memory_game">Encountered error while saving memory game</string>
+    <string name="failed_to_upload_image">Failed to upload image</string>
 </resources>

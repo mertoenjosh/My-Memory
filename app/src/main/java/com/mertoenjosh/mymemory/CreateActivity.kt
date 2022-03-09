@@ -168,13 +168,14 @@ class CreateActivity : AppCompatActivity() {
             }
         }.addOnFailureListener { exception ->
             Log.e(TAG, "Encountered error while saving memory game", exception)
-            Toast.makeText(this, "Encountered error while saving memory game", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_saving_memory_game), Toast.LENGTH_SHORT).show()
             btnSave.isEnabled = true
         }
 
     }
 
     private fun handleImageUploading(gameName: String) {
+        // Uploading to storage
         pbUploading.visibility = View.VISIBLE
         var didEncounterError = false
         val uploadedImageUrls = mutableListOf<String>()
@@ -185,14 +186,16 @@ class CreateActivity : AppCompatActivity() {
             photoReference.putBytes(imageByteArray)
                 .continueWithTask { photoUploadTask ->
                     Log.i(TAG, "Uploaded bytes: ${photoUploadTask.result?.bytesTransferred}")
+
                     photoReference.downloadUrl
                 }.addOnCompleteListener { downloadUrlTask ->
                     if (!downloadUrlTask.isSuccessful) {
                         Log.e(TAG, "Exception with firebase storage", downloadUrlTask.exception)
-                        Toast.makeText(this, "Failed toupload image", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.failed_to_upload_image), Toast.LENGTH_SHORT).show()
                         didEncounterError = true
                         return@addOnCompleteListener
                     }
+
                     if (didEncounterError) {
                         pbUploading.visibility = View.GONE
                         return@addOnCompleteListener
@@ -214,7 +217,7 @@ class CreateActivity : AppCompatActivity() {
         gameName: String,
         imageUrls: MutableList<String>
     ) {
-        // TODO: upload this info to firestore
+        //  upload this info to firestore
         db.collection("games").document(gameName)
             .set(mapOf("images" to imageUrls))
             .addOnCompleteListener { gameCreationTask ->
